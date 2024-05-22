@@ -7,7 +7,7 @@ services:
       APP_PORT: 80
 
   server:
-    image: "ghcr.io/alexjustesen/speedtest-tracker:latest"
+    image: "lscr.io/linuxserver/speedtest-tracker:latest"
     environment:
       - PUID=1000
       - PGID=1000

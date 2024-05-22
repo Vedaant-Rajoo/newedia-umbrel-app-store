@@ -34,4 +34,4 @@ services:
       - MARIADB_PASSWORD=umbrel
       - MARIADB_RANDOM_ROOT_PASSWORD=true
     volumes:
-      - "${APP_DATA_DIR}/newedia-speedtest-tracker/mariadb:/var/lib/mysql"e
+      - "${APP_DATA_DIR}/newedia-speedtest-tracker/mariadb:/var/lib/mysql"

@@ -1,89 +1,62 @@
-version: '3.7'
-# NewEdia's customized Immich configuration
-# Based on the official Immich docker-compose.yml but with optimized settings
+version: "3.7"
 
-x-environment: &default-environment
-  NODE_ENV: production
-  DB_HOSTNAME: newedia-immich_postgres_1
-  DB_USERNAME: immich
-  DB_PASSWORD: moneyprintergobrrr
-  DB_DATABASE_NAME: immich
-  REDIS_HOSTNAME: newedia-immich_redis_1
-  LOG_LEVEL: log
+x-environment: &env
+  NODE_ENV: "production"
+  DB_HOSTNAME: "immich_postgres_1"
+  DB_USERNAME: &db_username "immich"
+  DB_PASSWORD: &db_password "moneyprintergobrrr"
+  DB_DATABASE_NAME: &db_database_name "immich"
+  REDIS_HOSTNAME: "immich_redis_1"
+  LOG_LEVEL: "log"
   JWT_SECRET: ${APP_SEED}
-  DISABLE_REVERSE_GEOCODING: 'false'
-  REVERSE_GEOCODING_PRECISION: '3'
-  PUBLIC_LOGIN_PAGE_MESSAGE: 'NewEdia Immich Instance'
-  IMMICH_MACHINE_LEARNING_URL: http://newedia-immich_machine-learning_1:3003
+  DISABLE_REVERSE_GEOCODING: "false"
+  REVERSE_GEOCODING_PRECISION: "3"
+  PUBLIC_LOGIN_PAGE_MESSAGE: ""
+  IMMICH_MACHINE_LEARNING_URL: "http://immich_machine-learning_1:3003"
 
 services:
   app_proxy:
     environment:
-      APP_HOST: newedia-immich_server_1
+      APP_HOST: immich_server_1
       APP_PORT: 2283
-      PROXY_AUTH_ADD: 'false'
-    container_name: newedia-immich_app_proxy_1
+      PROXY_AUTH_ADD: "false"
 
   server:
-    image: >-
-      ghcr.io/immich-app/immich-server:v1.127.0@sha256:6606ce7740f7a06f7a53b49083100c6c05f75c84c85a87e9e4e7309ac0c5d454
+    image: ghcr.io/immich-app/immich-server:v1.127.0@sha256:6606ce7740f7a06f7a53b49083100c6c05f75c84c85a87e9e4e7309ac0c5d454
     volumes:
-      - /home/umbrel/umbrel/external/BigBoy/newedia-immich/upload:/upload
+      - ${APP_DATA_DIR}/data/upload:/usr/src/app/upload
     environment:
-      <<: *default-environment
+      <<: *env
     depends_on:
       - redis
       - postgres
     restart: on-failure
-    container_name: newedia-immich_server_1
 
-  # Machine learning service for face recognition and object detection
   machine-learning:
-    image: >-
-      ghcr.io/immich-app/immich-machine-learning:v1.127.0@sha256:d38705cdebe2389b46e11d46b7874ffb81d7e7bbf68eaa02df6f26b97d550901
+    image: ghcr.io/immich-app/immich-machine-learning:v1.127.0@sha256:d38705cdebe2389b46e11d46b7874ffb81d7e7bbf68eaa02df6f26b97d550901
     volumes:
-      - /home/umbrel/umbrel/external/BigBoy/newedia-immich/model-cache:/cache
+      - ${APP_DATA_DIR}/data/model-cache:/cache
     environment:
-      <<: *default-environment
+      <<: *env
     restart: on-failure
-    container_name: newedia-immich_machine-learning_1
 
-  # Redis cache for improved performance
   redis:
-    image: >-
-      redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3
-    user: '1000:1000'
+    image: redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3
+    user: "1000:1000"
     restart: on-failure
     volumes:
-      - /home/umbrel/umbrel/external/BigBoy/newedia-immich/redis:/data
-    container_name: newedia-immich_redis_1
+      - ${APP_DATA_DIR}/data/redis:/data
 
-  # Database with vector search capabilities for image similarity
   postgres:
-    image: >-
-      tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
-    user: '1000:1000'
-    command:
-      - postgres
-      - '-c'
-      - shared_preload_libraries=vectors.so
-      - '-c'
-      - search_path="$$user", public, vectors
-      - '-c'
-      - logging_collector=on
-      - '-c'
-      - max_wal_size=2GB
-      - '-c'
-      - shared_buffers=512MB
-      - '-c'
-      - wal_compression=on
+    image: tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+    user: "1000:1000"
+    command: ["postgres", "-c" ,"shared_preload_libraries=vectors.so", "-c", 'search_path="$$user", public, vectors', "-c", "logging_collector=on", "-c", "max_wal_size=2GB", "-c", "shared_buffers=512MB", "-c", "wal_compression=on"]
     environment:
-      <<: *default-environment
-      POSTGRES_PASSWORD: moneyprintergobrrr
-      POSTGRES_USER: immich
-      POSTGRES_DB: immich
+      <<: *env
+      POSTGRES_PASSWORD: *db_password
+      POSTGRES_USER: *db_username
+      POSTGRES_DB: *db_database_name
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
-      - /home/umbrel/umbrel/external/BigBoy/newedia-immich/postgres:/var/lib/postgresql/data
+      - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
     restart: on-failure
-    container_name: newedia-immich_postgres_1

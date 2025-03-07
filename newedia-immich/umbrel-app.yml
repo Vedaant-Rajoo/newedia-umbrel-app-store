@@ -4,7 +4,6 @@ category: files
 name: Immich
 version: "v1.127.0-newedia"
 tagline: High-performance photo and video backup solution by NewEdia
-icon: https://getumbrel.github.io/umbrel-apps-gallery/immich/icon.svg
 description: >-
   An open-source and high-performance self-hosted backup solution for the videos and photos on your mobile device. 
   This is the NewEdia version with customized settings and optimizations.

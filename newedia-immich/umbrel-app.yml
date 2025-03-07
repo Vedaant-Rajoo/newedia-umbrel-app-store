@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: newedia-immich
 category: files
 name: Immich
-version: "v1.127.0-newedia"
+version: "v1.129.0-newedia"
 icon: https://github.com/immich-app/immich/blob/main/design/immich-logo.svg?raw=true
 tagline: High-performance photo and video backup solution by NewEdia
 description: >-

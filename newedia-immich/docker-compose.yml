@@ -25,6 +25,7 @@ services:
     image: ghcr.io/immich-app/immich-server:v1.127.0@sha256:6606ce7740f7a06f7a53b49083100c6c05f75c84c85a87e9e4e7309ac0c5d454
     volumes:
       - ${APP_DATA_DIR}/data/upload:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
     environment:
       <<: *env
     depends_on:

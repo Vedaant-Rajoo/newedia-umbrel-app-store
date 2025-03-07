@@ -3,6 +3,7 @@ id: newedia-immich
 category: files
 name: Immich
 version: "v1.127.0-newedia"
+icon: https://github.com/immich-app/immich/blob/main/design/immich-logo.svg?raw=true
 tagline: High-performance photo and video backup solution by NewEdia
 description: >-
   An open-source and high-performance self-hosted backup solution for the videos and photos on your mobile device. 
@@ -66,10 +67,6 @@ dependencies: []
 repo: https://github.com/immich-app/immich
 support: https://github.com/immich-app/immich/discussions
 port: 2283
-gallery:
-  - 1.jpg
-  - 2.jpg
-  - 3.jpg
 path: ""
 defaultUsername: ""
 defaultPassword: ""

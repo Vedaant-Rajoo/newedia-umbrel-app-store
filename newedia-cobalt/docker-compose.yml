@@ -2,7 +2,7 @@ services:
   app_proxy:
     environment:
       APP_HOST: newedia-cobalt_web_1
-      APP_PORT: 9000
+      APP_PORT: 9009
       PROXY_AUTH_ADD: "false"
   web:
     image: ghcr.io/imputnet/cobalt:10@sha256:cf5112f71ce6b333423e09e9ac731155f04f1d75f97378227a9da28ae014447d
@@ -10,9 +10,9 @@ services:
     read_only: true
     restart: on-failure
     ports:
-      - 0.0.0.0:9000:9000
+      - 0.0.0.0:9009:9000
     environment:
-      API_URL: "http://umbrel.local:9000/"
+      API_URL: "http://umbrel.local:9009/"
       API_AUTH_REQUIRED: 0
       DURATION_LIMIT: 86400
     volumes:

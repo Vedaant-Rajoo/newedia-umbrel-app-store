@@ -2,7 +2,7 @@ manifestVersion: 1
 id: newedia-redlib
 name: Redlib
 tagline: Browse Reddit privately and ad-free
-icon: https://your-icon-url-here
+icon: https://raw.githubusercontent.com/redlib-org/redlib/refs/heads/main/static/apple-touch-icon.png
 category: social
 version: "0.31.0"
 port: 8080
@@ -17,7 +17,7 @@ support: https://github.com/redlib-org/redlib/issues
 gallery:
   - https://i.ibb.co/18vrdxk/redlib-rust.png
 releaseNotes: >-
-  Initial release for Umbrel.
+  Initial release for Umbrel System.
 dependencies: []
 path: ""
 defaultUsername: ""

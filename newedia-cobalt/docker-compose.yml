@@ -10,9 +10,9 @@ services:
     read_only: true
     restart: on-failure
     ports:
-      - 0.0.0.0:9009:9001
+      - 0.0.0.0:9001:9001
     environment:
-      API_URL: "http://umbrel.local:9009/"
+      API_URL: "http://umbrel.local:9001/"
       API_AUTH_REQUIRED: 0
       DURATION_LIMIT: 86400
     volumes:

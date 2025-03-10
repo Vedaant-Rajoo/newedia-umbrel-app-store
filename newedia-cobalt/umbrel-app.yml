@@ -19,7 +19,7 @@ description: >-
   ⚠️ To ensure proper functionality, go to /settings/instances and set the processing server to http://umbrel.local:9000.
 developer: imputnet
 website: https://cobalt.tools/
-submitter: newedia1
+submitter: newedia
 submission: https://github.com/getumbrel/umbrel-apps/pull/
 repo: https://github.com/imputnet/cobalt
 support: https://github.com/imputnet/cobalt/issues

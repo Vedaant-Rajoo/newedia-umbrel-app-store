@@ -3,18 +3,19 @@ version: '3.7'
 services:
   app_proxy:
     environment:
-      APP_HOST: web
+      APP_HOST: cobalt-api
       APP_PORT: 9000
       PROXY_AUTH_ADD: "false"
-  web:
+  cobalt-api:
     image: ghcr.io/imputnet/cobalt:10@sha256:cf5112f71ce6b333423e09e9ac731155f04f1d75f97378227a9da28ae014447d
     init: true
     read_only: true
     restart: on-failure
+    container_name: cobalt-api
     ports:
-      - 0.0.0.0:4000:9000
+      - 0.0.0.0:6578:9000
     environment:
-      API_URL: "http://umbrel.local:4000/"
+      API_URL: "http://umbrel.local:6578/"
       API_AUTH_REQUIRED: 0
       DURATION_LIMIT: 86400
       # Uncomment the next line if you want to use cookies

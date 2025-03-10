@@ -1,0 +1,24 @@
+manifestVersion: 1
+id: newedia-redlib
+name: Redlib
+tagline: Browse Reddit privately and ad-free
+icon: https://your-icon-url-here
+category: social
+version: "0.31.0"
+port: 8080
+description: >-
+  Redlib is a fast, private, and lightweight alternative front-end for Reddit. It allows you to browse Reddit without ads, trackers, or JavaScript, ensuring your privacy and a smooth user experience. With Redlib, you can enjoy Reddit's content while keeping your data secure and your browsing fast.
+developer: redlib-org
+website: https://github.com/redlib-org/redlib
+submitter: newedia
+submission: https://github.com/getumbrel/umbrel-apps/pull/XXXX
+repo: https://github.com/redlib-org/redlib
+support: https://github.com/redlib-org/redlib/issues
+gallery:
+  - https://i.ibb.co/18vrdxk/redlib-rust.png
+releaseNotes: >-
+  Initial release for Umbrel.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   app_proxy:
     environment:
@@ -10,15 +8,16 @@ services:
     image: ghcr.io/imputnet/cobalt:10@sha256:cf5112f71ce6b333423e09e9ac731155f04f1d75f97378227a9da28ae014447d
     init: true
     read_only: true
-    restart: on-failure
+    restart: unless-stopped  # Updated for robustness
     container_name: cobalt-api
     ports:
       - 0.0.0.0:6578:9000
     environment:
-      API_URL: "http://umbrel.local:6578/"
+      API_URL: "http://umbrel.local:6578/"  # Adjust if external access is needed
       API_AUTH_REQUIRED: 0
       DURATION_LIMIT: 86400
-      # Uncomment the next line if you want to use cookies
+      # Uncomment if using cookies
       # COOKIE_PATH: "/cookies.json"
     volumes:
-      - ${APP_DATA_DIR}/data/cookies/cookies.json:/cookies.json
+      # Uncomment if using cookies
+      # - ${APP_DATA_DIR}/data/cookies/cookies.json:/cookies.json
